@@ -1,8 +1,15 @@
 package application;
 
+import javax.swing.*;
+import java.util.Arrays;
+
 public class PlayWithStrings {
 	public static void main(String[] args) {
 		System.out.println("Hello String World");
+		printIntitials("Sebastian","Otter-Bäck");
+		System.out.println(areAnagrams("soft ware", "swear.oft"));
+		System.out.println(isPalindrome("Hannah"));
+
 	}
 
 	/**
@@ -14,7 +21,10 @@ public class PlayWithStrings {
 	 * @param lastname
 	 */
 	public static void printIntitials(String firstname, String lastname) {
-
+		String iniFirst = firstname.substring(0,1);
+		String iniLast = lastname.substring(0,1);
+		String initials = iniFirst + " " + iniLast;
+		System.out.println(initials);
 	}
 
 	/**
@@ -31,8 +41,23 @@ public class PlayWithStrings {
 	 * @return true if the values are anagrams, false otherwise.
 	 */
 	public static boolean areAnagrams(String value1, String value2) {
-		return false;
+		value1 = value1.replaceAll("\\s", "").replaceAll("\\.","");
+		value2 = value2.replaceAll("\\s", "").replaceAll("\\.","");
+
+		if (value1.length()!=value2.length()){
+			return false;
+		}
+
+		char[] arrayV1 = value1.toLowerCase().toCharArray();
+		char[] arrayV2 = value2.toLowerCase().toCharArray();
+
+		Arrays.sort(arrayV1);
+		Arrays.sort(arrayV2);
+
+		return Arrays.equals(arrayV1, arrayV2);
+
 	}
+
 
 	/**
 	 * TODO: palindrone checker
@@ -49,6 +74,13 @@ public class PlayWithStrings {
 	 * @return true if it is a palindrome, false otherwise.
 	 */
 	public static boolean isPalindrome(String value) {
-		return false;
+		String revValue = "";
+		for (int i = 0; i < value.length();i++){
+			revValue = value.charAt(i) + revValue;
+		}
+		char[] valueNormal = value.toLowerCase().toCharArray();
+		char[] valueReverse = revValue.toLowerCase().toCharArray();
+//		System.out.println(Arrays.toString(valueNormal) + "<- Normal / Reverse -> "+ Arrays.toString(valueReverse));
+		return Arrays.equals(valueNormal, valueReverse);
 	}
 }
